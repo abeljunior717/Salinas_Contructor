@@ -136,15 +136,77 @@ REQUISITOS DEL SISTEMA
 PROCEDIMIENTO DE INSTALACIÓN
 --------------------------------------------------------------------------------
 
-OPCIÓN 1: Instalación con Laragon (Recomendado para Windows)
+INSTALACIÓN DESDE GITHUB (Recomendado)
 --------------------------------------------------------------
-1. Descomprimir el archivo del proyecto en:
-   C:\laragon\www\salinas
+1. Clonar el repositorio:
+   git clone https://github.com/abeljunior717/Salinas_Contructor.git
+   cd Salinas_Contructor
+
+2. Instalar dependencias de PHP:
+   composer install
+
+3. Copiar el archivo de configuración:
+   - Windows (CMD): copy .env.example .env
+   - Windows (PowerShell): Copy-Item .env.example .env
+   - Linux/Mac: cp .env.example .env
+
+4. Generar la clave de la aplicación:
+   php artisan key:generate
+
+5. Crear la base de datos SQLite:
+   - Windows (CMD): type nul > database\database.sqlite
+   - Windows (PowerShell): New-Item database/database.sqlite
+   - Linux/Mac: touch database/database.sqlite
+
+6. Ejecutar migraciones y seeders:
+   php artisan migrate --seed
+
+7. Iniciar el servidor de desarrollo:
+   php artisan serve
+
+8. Acceder a la aplicación:
+   http://localhost:8000
+
+
+OPCIÓN 2: Instalación con Laragon (Windows)
+--------------------------------------------------------------
+1. Clonar el repositorio en la carpeta de Laragon:
+   cd C:\laragon\www
+   git clone https://github.com/abeljunior717/Salinas_Contructor.git
+   cd Salinas_Contructor
 
 2. Abrir Laragon y asegurarse que Apache y PHP estén activos
 
-3. Abrir PowerShell o CMD en la carpeta del proyecto:
-   cd C:\laragon\www\salinas
+3. Instalar dependencias de PHP:
+   composer install
+
+4. Copiar el archivo de configuración:
+   copy .env.example .env
+
+5. Generar la clave de la aplicación:
+   php artisan key:generate
+
+6. Crear la base de datos:
+   type nul > database\database.sqlite
+
+7. Ejecutar migraciones:
+   php artisan migrate --seed
+
+8. Acceder a la aplicación:
+   http://salinas_contructor.test
+   o
+   http://localhost/Salinas_Contructor/public
+
+
+OPCIÓN 3: Instalación Manual (Descarga ZIP)
+--------------------------------------------------------------
+1. Descargar el proyecto desde GitHub:
+   https://github.com/abeljunior717/Salinas_Contructor
+   Click en "Code" → "Download ZIP"
+
+2. Descomprimir en la ubicación deseada
+
+3. Abrir terminal en la carpeta del proyecto
 
 4. Instalar dependencias de PHP:
    composer install
@@ -155,43 +217,101 @@ OPCIÓN 1: Instalación con Laragon (Recomendado para Windows)
 6. Generar la clave de la aplicación:
    php artisan key:generate
 
-7. Verificar que existe el archivo de base de datos:
-   database\database.sqlite
+7. Crear la base de datos:
+   type nul > database\database.sqlite
    
-   Si no existe, crear la base de datos:
+8. Ejecutar migraciones:
    php artisan migrate --seed
 
-8. Importar datos iniciales (si se proporciona el archivo SQL):
-   - Opción A: Usar el script incluido
-   - Opción B: La base de datos ya viene con datos de prueba
-
-9. Acceder a la aplicación:
-   http://salinas.test
-   o
-   http://localhost/salinas/public
-
-
-OPCIÓN 2: Instalación con PHP Built-in Server
---------------------------------------------------------------
-1. Descomprimir el proyecto en cualquier carpeta
-
-2. Abrir terminal en la carpeta del proyecto
-
-3. Instalar dependencias:
-   composer install
-
-4. Configurar .env:
-   copy .env.example .env
-   php artisan key:generate
-
-5. Ejecutar migraciones (si la DB no existe):
-   php artisan migrate --seed
-
-6. Iniciar el servidor:
+9. Iniciar el servidor:
    php artisan serve
 
-7. Acceder a:
+10. Acceder a:
    http://localhost:8000
+
+
+VERIFICACIÓN DE INSTALACIÓN
+--------------------------------------------------------------------------------
+1. Verificar que PHP está instalado:
+   php -v
+   (Debe mostrar PHP 8.2 o superior)
+
+2. Verificar que Composer está instalado:
+   composer -V
+
+3. Verificar extensiones PHP requeridas:
+   php -m
+   (Verificar que incluye: pdo_sqlite, mbstring, openssl, tokenizer, xml, ctype, json)
+
+4. Si falta alguna extensión, editar php.ini y descomentar (quitar el ;):
+   ;extension=pdo_sqlite    →    extension=pdo_sqlite
+   ;extension=mbstring      →    extension=mbstring
+
+
+SOLUCIÓN DE PROBLEMAS COMUNES
+--------------------------------------------------------------------------------
+
+Problema: "composer: command not found"
+Solución: Instalar Composer desde https://getcomposer.org/download/
+
+Problema: "php: command not found"
+Solución: Instalar PHP o agregar PHP al PATH del sistema
+
+Problema: Error "Class 'PDO' not found"
+Solución: Habilitar extensión pdo_sqlite en php.ini
+
+Problema: Error "No application encryption key has been specified"
+Solución: Ejecutar: php artisan key:generate
+
+Problema: "No se encuentra la base de datos"
+Solución: Crear archivo vacío: touch database/database.sqlite (Linux/Mac)
+          o: type nul > database\database.sqlite (Windows)
+
+Problema: Error de permisos en storage/
+Solución: 
+   - Windows: icacls storage /grant Everyone:F /T
+   - Linux/Mac: chmod -R 775 storage bootstrap/cache
+
+Problema: "SQLSTATE[HY000]: General error: 8 attempt to write a readonly database"
+Solución: Dar permisos de escritura a database/ y database.sqlite
+
+Problema: Estilos no cargan
+Solución: Verificar conexión a internet (Tailwind CSS usa CDN)
+
+Problema: No puedo hacer login
+Solución: Verificar credenciales o ejecutar: php artisan migrate:fresh --seed
+
+
+ACTUALIZACIÓN DEL PROYECTO
+--------------------------------------------------------------------------------
+Si ya tienes el proyecto clonado y quieres actualizar a la última versión:
+
+1. Guardar cambios locales (opcional):
+   git stash
+
+2. Obtener últimos cambios:
+   git pull origin main
+
+3. Actualizar dependencias:
+   composer install
+
+4. Ejecutar migraciones nuevas:
+   php artisan migrate
+
+5. Restaurar cambios locales (si usaste stash):
+   git stash pop
+
+
+DESINSTALACIÓN
+--------------------------------------------------------------------------------
+1. Detener el servidor (Ctrl + C si está corriendo)
+2. Eliminar la carpeta del proyecto
+3. (Opcional) Eliminar la base de datos si está en otro lugar
+
+
+ENLACE DEL REPOSITORIO
+--------------------------------------------------------------------------------
+GitHub: https://github.com/abeljunior717/Salinas_Contructor
 
 
 CREDENCIALES DE ACCESO
