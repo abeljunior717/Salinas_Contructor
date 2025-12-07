@@ -1,0 +1,431 @@
+================================================================================
+              SISTEMA DE GESTIÓN - SALINAS CONSTRUCTOR
+================================================================================
+
+INFORMACIÓN DEL PROYECTO
+--------------------------------------------------------------------------------
+Nombre del Proyecto: Salinas Constructor - Sistema de Gestión de Materiales de Construcción
+Desarrollador: [Abel Luna Pérez]
+Fecha de Entrega: 4 de Diciembre de 2025
+Versión: 1.0
+
+
+TECNOLOGÍAS UTILIZADAS
+--------------------------------------------------------------------------------
+• Backend Framework: Laravel 12.37.0 (PHP 8.3.16)
+• Base de Datos: SQLite 3
+• Frontend: 
+  - Tailwind CSS 3.x (Framework CSS)
+  - JavaScript Vanilla
+  - Font Awesome 6.4.0 (Iconos)
+  - Google Fonts (Inter)
+• Patrón de Diseño: MVC (Model-View-Controller)
+• Generación de PDF: DomPDF (Laravel-DomPDF)
+• Servidor de Desarrollo: Laragon (Apache + PHP)
+
+
+DESCRIPCIÓN DEL PROYECTO
+--------------------------------------------------------------------------------
+Sistema web completo para la gestión de materiales de construcción que incluye:
+
+1. CATÁLOGO DE PRODUCTOS
+   - Visualización de productos con filtros por categoría
+   - Sistema de búsqueda avanzada
+   - Fichas técnicas detalladas en PDF con 14 campos específicos
+   - Vista previa de fichas técnicas en modal
+   - Información detallada (precio, stock, especificaciones)
+
+2. SISTEMA DE COTIZACIONES
+   - Solicitud de cotizaciones por clientes registrados
+   - Sistema de aprobación/rechazo por administradores
+   - Estados: Pendiente, Aceptada, Rechazada, Expirada
+   - Cálculo automático de IVA (19%)
+   - Mensajes personalizados según estado de cotización
+   - Dashboard de cotizaciones para clientes
+
+3. CALCULADORA DE MATERIALES
+   - Cálculo de materiales para construcción de muros
+   - Estimación de cemento, arena, grava y varillas de acero
+   - Incluye 10% de desperdicio en cálculos
+   - Interfaz intuitiva con validación de datos
+
+4. SISTEMA DE NOTICIAS
+   - Publicación de noticias y artículos
+   - Gestión completa desde panel de administración
+   - Visualización en página de inicio
+
+5. FORMULARIO DE CONTACTO
+   - Envío de mensajes desde la web
+   - Almacenamiento en base de datos
+   - Panel de administración de mensajes
+   - Estados: Leído/No leído
+
+6. PANEL DE ADMINISTRACIÓN
+   - Gestión completa de productos y categorías
+   - Aprobación/rechazo de cotizaciones
+   - Administración de noticias
+   - Gestión de mensajes de contacto
+   - Visualización de usuarios registrados
+   - Dashboard con estadísticas en tiempo real
+   - Sistema de inventario integrado
+   - Punto de Venta (POS) completo
+   - Control de Entradas y Salidas de inventario
+
+7. SISTEMA DE AUTENTICACIÓN
+   - Registro de usuarios (clientes)
+   - Login/Logout seguro
+   - Roles: Administrador y Cliente
+   - Restricción de acceso según rol
+
+8. SISTEMA DE INVENTARIO (Exclusivo para Administradores)
+   - Control de entradas y salidas de mercancía
+   - Registro de ajustes de inventario
+   - Historial completo de movimientos con filtros
+   - Alertas automáticas de stock bajo
+   - Tracking de stock antes/después de cada movimiento
+   - Dashboard con productos que requieren reabastecimiento
+   - Validación para prevenir stock negativo
+
+9. PUNTO DE VENTA (POS) - Exclusivo para Administradores
+   - Interfaz de venta con carrito interactivo
+   - Sistema de búsqueda y filtrado de productos por categoría
+   - Procesamiento de ventas con múltiples métodos de pago (Efectivo, Tarjeta, Transferencia)
+   - Actualización automática de inventario al registrar ventas
+   - Generación de folios únicos (VTA-YYYYMMDD-####)
+   - Recibos imprimibles con información completa
+   - Historial de ventas con estadísticas
+   - Registro de datos del cliente (nombre y teléfono)
+   - Validación de stock disponible antes de procesar
+
+10. CONTROL DE ENTRADAS Y SALIDAS - Exclusivo para Administradores
+   - Panel dual: Entradas (verde) y Salidas (rojo)
+   - Selectores de productos organizados por categoría
+   - Visualización de stock actual en tiempo real
+   - Registro de motivos para cada movimiento
+   - Historial completo con filtros avanzados (tipo, producto, fechas)
+   - Estadísticas del día y del mes
+   - Seguimiento de stock antes y después de cada movimiento
+   - Integración completa con el sistema de inventario
+
+11. SISTEMA DE PLAZOS Y CARGOS EN COTIZACIONES
+   - Plazo automático de 1 mes para pago y recolección
+   - Cálculo dinámico de días restantes
+   - Código de colores según urgencia (verde/amarillo/rojo)
+   - Cargo automático de $240 por cada mes de retraso
+   - Alertas al administrador de cotizaciones vencidas
+   - Actualización automática del total con cargos acumulados
+
+
+REQUISITOS DEL SISTEMA
+--------------------------------------------------------------------------------
+• PHP >= 8.2
+• Composer (Gestor de dependencias de PHP)
+• SQLite 3
+• Extensiones PHP requeridas:
+  - PDO
+  - SQLite
+  - MBString
+  - OpenSSL
+  - Tokenizer
+  - XML
+  - Ctype
+  - JSON
+  - BCMath
+
+
+PROCEDIMIENTO DE INSTALACIÓN
+--------------------------------------------------------------------------------
+
+OPCIÓN 1: Instalación con Laragon (Recomendado para Windows)
+--------------------------------------------------------------
+1. Descomprimir el archivo del proyecto en:
+   C:\laragon\www\salinas
+
+2. Abrir Laragon y asegurarse que Apache y PHP estén activos
+
+3. Abrir PowerShell o CMD en la carpeta del proyecto:
+   cd C:\laragon\www\salinas
+
+4. Instalar dependencias de PHP:
+   composer install
+
+5. Copiar el archivo de configuración:
+   copy .env.example .env
+
+6. Generar la clave de la aplicación:
+   php artisan key:generate
+
+7. Verificar que existe el archivo de base de datos:
+   database\database.sqlite
+   
+   Si no existe, crear la base de datos:
+   php artisan migrate --seed
+
+8. Importar datos iniciales (si se proporciona el archivo SQL):
+   - Opción A: Usar el script incluido
+   - Opción B: La base de datos ya viene con datos de prueba
+
+9. Acceder a la aplicación:
+   http://salinas.test
+   o
+   http://localhost/salinas/public
+
+
+OPCIÓN 2: Instalación con PHP Built-in Server
+--------------------------------------------------------------
+1. Descomprimir el proyecto en cualquier carpeta
+
+2. Abrir terminal en la carpeta del proyecto
+
+3. Instalar dependencias:
+   composer install
+
+4. Configurar .env:
+   copy .env.example .env
+   php artisan key:generate
+
+5. Ejecutar migraciones (si la DB no existe):
+   php artisan migrate --seed
+
+6. Iniciar el servidor:
+   php artisan serve
+
+7. Acceder a:
+   http://localhost:8000
+
+
+CREDENCIALES DE ACCESO
+--------------------------------------------------------------------------------
+
+ADMINISTRADOR:
+--------------
+Email: vfjunior117@gmail.com
+Contraseña: 9317anm
+Rol: admin
+
+DESCRIPCIÓN: Acceso completo al sistema. Puede gestionar productos, 
+categorías, noticias, aprobar cotizaciones, ver mensajes y administrar usuarios.
+
+
+CLIENTES DE PRUEBA:
+-------------------
+Para crear una cuenta de cliente:
+1. Ir a la página de registro
+2. Llenar el formulario con tus datos
+3. Automáticamente se asigna el rol de "cliente"
+
+------puede usar--------
+Email: delfin1@gmail.com
+Contraseña: 12345678
+Rol: cliente
+
+NOTA: Solo el email vfjunior117@gmail.com tiene rol de administrador.
+Cualquier otro email registrado será un cliente.
+
+
+ESTRUCTURA DEL PROYECTO
+--------------------------------------------------------------------------------
+salinas/
+│
+├── app/
+│   ├── Http/
+│   │   ├── Controllers/          # Controladores del sistema
+│   │   │   ├── Admin/            # Controladores del panel admin
+│   │   │   │   ├── AdminDashboardController.php
+│   │   │   │   ├── InventoryController.php
+│   │   │   │   ├── MessageController.php
+│   │   │   │   ├── POSController.php
+│   │   │   │   └── TransactionController.php
+│   │   │   ├── Auth/             # Autenticación
+│   │   │   ├── CalculatorController.php
+│   │   │   ├── ContactController.php
+│   │   │   ├── NewsController.php
+│   │   │   ├── ProductController.php
+│   │   │   ├── ProductDatasheetController.php
+│   │   │   └── QuotationController.php
+│   │   └── Middleware/           # Middlewares personalizados
+│   │
+│   ├── Models/                   # Modelos Eloquent (ORM)
+│   │   ├── Category.php
+│   │   ├── InventoryMovement.php
+│   │   ├── Message.php
+│   │   ├── News.php
+│   │   ├── Product.php
+│   │   ├── Quotation.php
+│   │   ├── QuotationItem.php
+│   │   ├── Sale.php
+│   │   ├── SaleItem.php
+│   │   └── User.php
+│   │
+│   └── Services/                 # Servicios auxiliares
+│
+├── database/
+│   ├── migrations/               # Migraciones de base de datos
+│   ├── seeders/                  # Datos iniciales
+│   └── database.sqlite           # Base de datos SQLite
+│
+├── resources/
+│   └── views/                    # Vistas Blade (Frontend)
+│       ├── admin/                # Vistas del panel admin
+│       │   ├── inventory/        # Sistema de inventario
+│       │   ├── pos/              # Punto de Venta
+│       │   └── transactions/     # Entradas y Salidas
+│       ├── auth/                 # Vistas de autenticación
+│       ├── calculator/           # Calculadora
+│       ├── contact/              # Contacto
+│       ├── layouts/              # Layouts principales
+│       ├── news/                 # Noticias
+│       ├── products/             # Productos
+│       └── quotations/           # Cotizaciones
+│
+├── routes/
+│   └── web.php                   # Definición de rutas
+│
+├── public/                       # Archivos públicos accesibles
+│   └── index.php                 # Punto de entrada
+│
+└── config/                       # Archivos de configuración
+
+
+FUNCIONALIDADES PRINCIPALES
+--------------------------------------------------------------------------------
+
+1. PARA VISITANTES (No autenticados):
+   • Ver catálogo de productos
+   • Ver noticias
+   • Usar calculadora de materiales
+   • Enviar mensajes de contacto
+   • Registrarse como cliente
+
+2. PARA CLIENTES (Autenticados):
+   • Todas las funciones de visitantes
+   • Solicitar cotizaciones de productos
+   • Ver historial de cotizaciones
+   • Dashboard con estadísticas personales
+   • Descargar fichas técnicas en PDF
+
+3. PARA ADMINISTRADORES:
+   • Gestión completa de productos y categorías
+   • Crear/editar/eliminar noticias
+   • Aprobar o rechazar cotizaciones con plazos de pago
+   • Ver y gestionar mensajes de contacto
+   • Dashboard con estadísticas globales
+   • Gestión de usuarios
+   • Control de inventario (entradas/salidas/ajustes)
+   • Historial de movimientos de inventario
+   • Alertas de productos con stock bajo
+   • Punto de Venta (POS) con carrito interactivo
+   • Registro de ventas con múltiples métodos de pago
+   • Control de Entradas y Salidas con estadísticas en tiempo real
+   • Historial completo de transacciones con filtros avanzados
+   • Seguimiento de cotizaciones vencidas y cargos por retraso
+
+
+RUTAS PRINCIPALES DEL SISTEMA
+--------------------------------------------------------------------------------
+• Página Principal: /
+• Productos: /productos
+• Detalle de Producto: /productos/{slug}
+• Calculadora: /calculadora
+• Noticias: /noticias
+• Contacto: /contacto
+• Login: /login
+• Registro: /register
+• Dashboard Admin: /admin/dashboard
+• Cotizaciones Cliente: /cotizaciones
+• Mensajes Admin: /admin/mensajes
+• Inventario Admin: /admin/inventario
+• Alertas de Stock: /admin/inventario/alertas
+• Punto de Venta: /admin/pos
+• Historial de Ventas: /admin/pos/ventas
+• Entradas y Salidas: /admin/transacciones
+• Historial de Transacciones: /admin/transacciones/historial
+
+
+NOTAS IMPORTANTES
+--------------------------------------------------------------------------------
+1. La base de datos SQLite (database.sqlite) ya contiene datos de prueba
+2. Las fichas técnicas se generan dinámicamente en PDF usando DomPDF
+3. El sistema incluye validaciones de seguridad y autenticación
+4. Los administradores no pueden solicitar cotizaciones (solo visualizar)
+5. Los mensajes de contacto se guardan en la base de datos
+6. Las cotizaciones tienen 4 estados: pendiente, aceptada, rechazada, expirada
+7. El sistema de inventario solo es accesible para administradores
+8. Los movimientos de inventario se registran con tracking completo (stock antes/después)
+9. Las alertas de stock bajo se muestran automáticamente en el dashboard admin
+10. El Punto de Venta actualiza automáticamente el inventario al procesar ventas
+11. Las ventas generan folios únicos con formato VTA-YYYYMMDD-####
+12. Las cotizaciones aprobadas tienen un plazo de 1 mes para pago y recolección
+13. Se cobra automáticamente $240 por cada mes de retraso en el pago
+14. Las cotizaciones vencidas generan alertas automáticas al administrador
+15. El sistema de Entradas y Salidas valida stock disponible antes de permitir salidas
+16. Todos los movimientos de inventario quedan registrados con usuario, fecha y motivo
+
+
+SOLUCIÓN DE PROBLEMAS COMUNES
+--------------------------------------------------------------------------------
+
+Problema: Error "No se encuentra la base de datos"
+Solución: Ejecutar: php artisan migrate --seed
+
+Problema: Error "Página en blanco"
+Solución: Verificar que existe public/.htaccess y que mod_rewrite está activo
+
+Problema: Error de permisos
+Solución: Dar permisos de escritura a:
+  - storage/
+  - bootstrap/cache/
+  - database/
+
+Problema: Estilos no cargan
+Solución: Verificar que Tailwind CSS CDN está disponible (requiere internet)
+
+Problema: No puedo login
+Solución: Verificar credenciales o crear un usuario nuevo desde registro
+
+
+ARQUITECTURA Y PATRONES DE DISEÑO
+--------------------------------------------------------------------------------
+• Patrón MVC (Model-View-Controller):
+  - Models: Representan las tablas de la base de datos (Eloquent ORM)
+  - Views: Plantillas Blade para la interfaz de usuario
+  - Controllers: Lógica de negocio y manejo de peticiones
+
+• Separación de Responsabilidades:
+  - Controladores separados por funcionalidad
+  - Middleware para autenticación y autorización
+  - Servicios para lógica compleja reutilizable
+
+• Base de Datos:
+  - Migraciones para versionado de estructura
+  - Seeders para datos iniciales
+  - Eloquent ORM para abstracción de base de datos
+
+
+CARACTERÍSTICAS TÉCNICAS DESTACADAS
+--------------------------------------------------------------------------------
+• Diseño Responsivo (Mobile-first)
+• Generación dinámica de PDF
+• Sistema de autenticación robusto
+• Validación de datos en backend y frontend
+• Protección CSRF
+• Organización limpia del código
+• Comentarios descriptivos en código crítico
+• Uso de componentes reutilizables (Blade Components)
+• Sistema de inventario con control de stock en tiempo real
+• Transacciones de base de datos para integridad de datos
+• Alertas automáticas y notificaciones visuales
+• Punto de Venta con carrito JavaScript interactivo
+• Sistema de folios únicos para ventas
+• Recibos imprimibles con información completa
+• Control dual de Entradas y Salidas con paneles separados
+• Historial de transacciones con filtros avanzados
+• Sistema de plazos y cargos automáticos en cotizaciones
+• Cálculo dinámico de días restantes y cargos por retraso
+• Código de colores para urgencia de cotizaciones
+
+
+FIN DEL DOCUMENTO
+================================================================================
+Última actualización: 7 de Diciembre de 2025
+================================================================================
