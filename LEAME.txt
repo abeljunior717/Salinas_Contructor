@@ -164,6 +164,17 @@ INSTALACIÓN DESDE GITHUB (Recomendado)
 7. Iniciar el servidor de desarrollo:
    php artisan serve
 
+   IMPORTANTE - Configuración de Estilos:
+   • CON INTERNET (Recomendado): 
+     - Terminal 1: npm run dev
+     - Terminal 2: php artisan serve
+     - Los estilos y fuentes cargarán perfectamente
+   
+   • SIN INTERNET (Opcional):
+     - Solo ejecutar: php artisan serve
+     - La aplicación funcionará correctamente
+     - Las fuentes de Google no cargarán, pero no afecta la funcionalidad
+
 8. Acceder a la aplicación:
    http://localhost:8000
 
@@ -192,7 +203,20 @@ OPCIÓN 2: Instalación con Laragon (Windows)
 7. Ejecutar migraciones:
    php artisan migrate --seed
 
-8. Acceder a la aplicación:
+8. Instalar dependencias de Node.js (necesario para estilos):
+   npm install
+
+9. Iniciar el servidor:
+   
+   CON INTERNET (Recomendado):
+   • Terminal 1: npm run dev
+   • Terminal 2: php artisan serve
+   
+   SIN INTERNET (Opcional):
+   • Solo ejecutar: php artisan serve
+   • Nota: Las fuentes de Google no cargarán pero la aplicación funciona normalmente
+
+10. Acceder a la aplicación:
    http://salinas_contructor.test
    o
    http://localhost/Salinas_Contructor/public
@@ -223,10 +247,22 @@ OPCIÓN 3: Instalación Manual (Descarga ZIP)
 8. Ejecutar migraciones:
    php artisan migrate --seed
 
-9. Iniciar el servidor:
-   php artisan serve
+9. Instalar dependencias de Node.js:
+   npm install
 
-10. Acceder a:
+10. Iniciar el servidor:
+   
+   CON INTERNET (Recomendado):
+   • Terminal 1: npm run dev
+   • Terminal 2: php artisan serve
+   • Los estilos cargarán perfectamente incluyendo Google Fonts
+   
+   SIN INTERNET (Opcional):
+   • Solo ejecutar: php artisan serve
+   • La aplicación funciona correctamente
+   • Las fuentes de Google no cargarán pero no afecta la funcionalidad
+
+11. Acceder a:
    http://localhost:8000
 
 
